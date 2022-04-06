@@ -88,10 +88,9 @@ tasks:
       # ------------------------------------
       # 🚀 Ignition
       # ------------------------------------
-      cd procyon
-      nohup WASM_WORKER_PORT=9090 ./procyon &
-      cd ../alcor
-      nohup PROXY_HTTP=8080 ./alcor &
+      cd procyon; WASM_WORKER_PORT=9090 nohup ./procyon & cd ..
+      cd alcor; PROXY_HTTP=8080 nohup ./alcor & cd ..
+
 
       echo "🎉 ready to discover Procyon 😃"
 
