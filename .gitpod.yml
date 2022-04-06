@@ -1,0 +1,112 @@
+tasks:
+  - name: initialize
+    before: |
+
+      # ------------------------------------
+      # Instal Wasmer and WAPM CLI
+      # ------------------------------------
+      sudo apt install libncurses5 libxkbcommon0 libtinfo5 libnss3-tools -y
+      curl https://get.wasmer.io -sSfL | sh 
+      source /home/gitpod/.wasmer/wasmer.sh
+      sudo echo "source /home/gitpod/.wasmer/wasmer.sh" >> $HOME/.bashrc
+
+      # ------------------------------------
+      # Install Sat (Suborbital)
+      # ------------------------------------
+      git clone --depth=1 https://github.com/suborbital/sat.git
+      cd sat
+      go build -o .bin/sat -tags netgo,wasmtime .
+      sudo cp .bin/sat /usr/local/bin/sat
+      cd ..
+      rm -rf sat
+
+      # ------------------------------------
+      # Install the Suborbital CLI
+      # ------------------------------------
+      brew tap suborbital/subo
+      brew install subo
+
+    init: |
+
+      RELEASE="0.0.9"
+      ARCHITECTURE="amd64"
+      # ------------------------------------
+      # Install Procyon
+      # ------------------------------------
+
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+      mkdir procyon
+      tar -zxf procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon
+      
+      cd procyon
+      procyon_json="$(cat <<-EOF
+      {
+        "executors": {
+          "satExecutorPath": "/usr/local/bin/sat"
+        },  
+        "functions": {
+          "wasmFilesDirectory": "./functions"
+        },
+        "http":{
+          "start": 3000
+        }
+      }
+      EOF
+      )"
+      echo "${procyon_json}" > procyon.json
+
+      # ------------------------------------
+      # Install ProcyonCtl
+      # ------------------------------------
+      procyon_config="$(cat <<-EOF
+      WASM_REGISTRY_URL="https://registry-cdn.wapm.io/contents"
+      PROCYON_URL="http://localhost:9090"
+      ALCOR_URL="http://localhost:8080"
+      EOF
+      )"
+      echo "${procyon_config}" > procyon.config
+
+      sudo cp ./procyonctl /usr/local/bin/procyonctl
+      sudo cp ./procyon.config /usr/local/bin/procyon.config
+
+      rm ./procyonctl
+      rm ./procyon.config
+
+      cd ..
+
+      # ------------------------------------
+      # Install Alcor (reverse proxy)
+      # ------------------------------------
+
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+      mkdir alcor
+      tar -zxf alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory alcor
+
+      rm alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz 
+      rm procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+
+      # ------------------------------------
+      # 🚀 Ignition
+      # ------------------------------------
+      cd procyon
+      nohup WASM_WORKER_PORT=9090 ./procyon &
+      cd ../alcor
+      nohup PROXY_HTTP=8080 ./alcor &
+
+      echo "🎉 ready to discover Procyon 😃"
+
+ports:
+    # Alcor reverse proxy 
+  - port: 8080
+    visibility: public
+    # Procyon
+  - port: 9090
+    visibility: public
+
+vscode:
+  extensions:
+    - pkief.material-icon-theme
+    - golang.go
+    - grain-lang.vscode-grain
+    - rust-lang.rust
+
