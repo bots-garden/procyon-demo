@@ -26,6 +26,14 @@ tasks:
       brew tap suborbital/subo
       brew install subo
 
+      # ------------------------------------
+      # Install tools
+      # ------------------------------------
+      brew install httpie
+      brew install hey
+      brew install mkcert
+
+
     init: |
 
       RELEASE="0.1.7"
@@ -115,6 +123,7 @@ tasks:
       sudo cp ./procyon-registry.config /usr/local/bin/procyon-registry.config
 
       cd certs
+      chmod +x ./generate.sh
       ./generate.sh
 
       cd ../..
