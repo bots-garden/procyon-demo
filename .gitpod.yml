@@ -162,20 +162,29 @@ tasks:
     openMode: tab-after
     command: |
       echo "🖐️"
+      ./start-procyon-launcher.sh
+
 
   - name: procyon-reverse
     init: gp sync-await ignition # wait for the above 'init' to finish
     openMode: split-right
     command: |
       echo "👋"
+      ./start-procyon-reverse.sh
+      
 
   - name: procyon-registry
     init: gp sync-await ignition # wait for the above 'init' to finish
     openMode: split-right
     command: |
       echo "🖖"
+      ./start-procyon-registry.sh
 
-
+  - name: procyon-sandboc
+    init: gp sync-await ignition # wait for the above 'init' to finish
+    openMode: tab-after
+    command: |
+      echo "👋 Hello World 🌍"
 
 ports:
     # Alcor reverse proxy 
