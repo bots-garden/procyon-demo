@@ -123,9 +123,9 @@ tasks:
       # ------------------------------------
       # 🚀 Ignition
       # ------------------------------------
-      cd procyon-launcher; WASM_WORKER_PORT=9090 nohup ./procyon-launcher & cd ..
-      cd procyon-reverse; PROXY_HTTP=8080 nohup ./procyon-reverse & cd ..
-      cd procyon-registry; nohup npm start & cd ..
+      #cd procyon-launcher; WASM_WORKER_PORT=9090 nohup ./procyon-launcher & cd ..
+      #cd procyon-reverse; PROXY_HTTP=8080 nohup ./procyon-reverse & cd ..
+      #cd procyon-registry; nohup npm start & cd ..
 
       echo "🎉 ready to discover Procyon 😃"
 
