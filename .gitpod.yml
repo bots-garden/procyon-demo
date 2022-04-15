@@ -31,6 +31,33 @@ tasks:
       RELEASE="0.1.6"
       ARCHITECTURE="amd64"
 
+      # ------------------------------------
+      # Install Procyon
+      # ------------------------------------
+
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-launcher-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+      mkdir procyon-launcher
+      tar -zxf procyon-launcher-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon-launcher
+      
+      cd procyon-launcher
+
+      procyon_json="$(cat <<-EOF
+      {
+        "executors": {
+          "satExecutorPath": "/usr/local/bin/sat"
+        },  
+        "functions": {
+          "wasmFilesDirectory": "./functions"
+        },
+        "http":{
+          "start": 3000
+        }
+      }
+      EOF
+      )"
+      
+      echo "${procyon_json}" > procyon-launcher.
+      cd ..
 
 
       echo "🎉 ready to discover Procyon 😃"
