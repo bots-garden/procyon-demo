@@ -119,7 +119,15 @@ tasks:
 
       cd ../..
 
+      # ------------------------------------
+      # 🚀 Ignition
+      # ------------------------------------
+      cd procyon-launcher; WASM_WORKER_PORT=9090 nohup ./procyon-launcher & cd ..
+      cd procyon-reverse; PROXY_HTTP=8080 nohup ./procyon-revers & cd ..
+      cd procyon-registry; nohup ./serve.sh & cd ..
       echo "🎉 ready to discover Procyon 😃"
+
+
 
 ports:
     # Alcor reverse proxy 
