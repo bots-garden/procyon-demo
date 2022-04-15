@@ -5,10 +5,10 @@ tasks:
       # ------------------------------------
       # Instal Wasmer and WAPM CLI
       # ------------------------------------
-      sudo apt install libncurses5 libxkbcommon0 libtinfo5 libnss3-tools -y
-      curl https://get.wasmer.io -sSfL | sh 
-      source /home/gitpod/.wasmer/wasmer.sh
-      sudo echo "source /home/gitpod/.wasmer/wasmer.sh" >> $HOME/.bashrc
+      #sudo apt install libncurses5 libxkbcommon0 libtinfo5 libnss3-tools -y
+      #curl https://get.wasmer.io -sSfL | sh 
+      #source /home/gitpod/.wasmer/wasmer.sh
+      #sudo echo "source /home/gitpod/.wasmer/wasmer.sh" >> $HOME/.bashrc
 
       # ------------------------------------
       # Install Sat (Suborbital)
@@ -23,13 +23,17 @@ tasks:
       # ------------------------------------
       # Install the Suborbital CLI
       # ------------------------------------
-      #brew tap suborbital/subo
-      #brew install subo
-      git clone --depth=1 https://github.com/suborbital/subo.git
-      cd subo
-      make subo
-      cd ..
-      rm -rf subo
+      brew tap suborbital/subo
+      brew install subo
+
+      #git clone --depth=1 https://github.com/suborbital/subo.git
+      #git clone https://github.com/suborbital/subo.git
+      
+      #cd subo
+      #git checkout tags/v0.4.1 -b tmp
+      #make subo
+      #cd ..
+      #rm -rf subo
 
       # ------------------------------------
       # Install tools
