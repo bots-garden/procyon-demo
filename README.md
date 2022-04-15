@@ -11,3 +11,10 @@
 👀 this blog post: https://www.wasm.builders/k33g_org/publish-your-runnables-on-wapmio-49k0
 
 
+```bash
+subo create runnable hello
+```
+
+```bash
+procyon-registryctl publish hello/hello.wasm hello 0.0.0
+```

@@ -119,8 +119,10 @@ tasks:
 
       echo 'PROCYON_REGISTRY_URL="https://localhost:7070"' > procyon-registry.config
 
-      sudo cp ./procyon-registry /usr/local/bin/procyon-registry
-      sudo cp ./procyon-registry.config /usr/local/bin/procyon-registry.config
+      chmod +x procyon-registryctl
+
+      sudo cp ./procyon-registryctl /usr/local/bin/procyon-registryctl
+      sudo cp ./procyon-registryctl.config /usr/local/bin/procyon-registryctl.config
 
       cd certs
       chmod +x ./generate.sh
