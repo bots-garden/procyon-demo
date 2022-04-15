@@ -19,11 +19,19 @@ subo create runnable hello
 ## Publish the Runnable to the local registry
 ```bash
 procyon-registryctl publish hello/hello.wasm hello 0.0.0
+
+procyon-registryctl publish hey/hey.wasm hey 0.0.0
+procyon-registryctl publish hey-next/hey-next.wasm hey 0.0.1
+procyon-registryctl publish hey-last/hey-last.wasm hey 0.0.2
 ```
 
 ## Deploy the Runnable
 ```bash
 procyonctl task deploy hello.0.0.0.wasm hello rev1
+
+procyonctl task deploy hey.0.0.0.wasm hey 🔵
+procyonctl task deploy hey.0.0.1.wasm hey 🟢
+procyonctl task deploy hey.0.0.2.wasm hey 🟠
 ```
 
 ## Query the Runnable [`POST`]
@@ -38,4 +46,18 @@ procyonctl func post hello 'Jane' # it will return `hello Jane`
 ```
 
 ## Query the Runnable [`GET`]
+
+```bash
+# call hello function
+procyonctl func get hey # it will return nothing
+procyonctl func get-revision hey 🔵 # it will return `<h1>Hey People 😃</h1>`
+procyonctl func get-revision hey 🟢 # it will return `<h1>Hey People 🎃</h1>`
+
+procyonctl task set-default-revision hey 🔵 on
+procyonctl func get hey # it will return `<h1>Hey People 😃</h1>`
+procyonctl task set-default-revision hey 🟢 on
+procyonctl func get hey # it will return `<h1>Hey People 🎃</h1>`
+procyonctl task set-default-revision hey 🔵 on
+procyonctl task set-default-revision hey 🟠 on
+```
 

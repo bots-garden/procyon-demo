@@ -7,7 +7,7 @@ import (
 type Hey struct{}
 
 func (h Hey) Run(input []byte) ([]byte, error) {
-	return []byte("Hello, " + string(input)), nil
+	return []byte("<h1>Hey People 😃</h1>"), nil
 }
 
 // initialize runnable, do not edit //

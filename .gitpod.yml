@@ -26,6 +26,14 @@ tasks:
       brew tap suborbital/subo
       brew install subo
 
+      TINYGO_VERSION="0.21.0"
+      # TinyGo
+      wget https://github.com/tinygo-org/tinygo/releases/download/v${TINYGO_VERSION}/tinygo_${TINYGO_VERSION}_amd64.deb
+      sudo dpkg -i tinygo_${TINYGO_VERSION}_amd64.deb
+      rm tinygo_${TINYGO_VERSION}_amd64.deb
+
+      # use the native build: `subo build hey/ --native`
+
       #git clone --depth=1 https://github.com/suborbital/subo.git
       #git clone https://github.com/suborbital/subo.git
       
@@ -139,10 +147,33 @@ tasks:
 
       cd ../..
 
+      rm *.gz
+      rm *.zip
+
       # ------------------------------------
       # 🚀 Ignition
       # ------------------------------------
       echo "🎉 ready to discover Procyon 😃"
+
+      gp sync-done ignition # 'ignition' is an arbitrary name
+
+  - name: procyon-launcher
+    init: gp sync-await ignition # wait for the above 'init' to finish
+    openMode: tab-after
+    command: |
+      echo "🖐️"
+
+  - name: procyon-reverse
+    init: gp sync-await ignition # wait for the above 'init' to finish
+    openMode: split-right
+    command: |
+      echo "👋"
+
+  - name: procyon-registry
+    init: gp sync-await ignition # wait for the above 'init' to finish
+    openMode: split-right
+    command: |
+      echo "🖖"
 
 
 
