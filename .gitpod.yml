@@ -81,7 +81,40 @@ tasks:
 
       cd ..
 
+      # ------------------------------------
+      # Procyon Reverse (reverse proxy)
+      # ------------------------------------
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-reverse-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+      mkdir procyon-reverse
+      tar -zxf procyon-reverse-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon-reverse
 
+      cd procyon-reverse
+      procyon_json="$(cat <<-EOF
+      {
+        "procyonUrl": "http://localhost:9090",
+        "procyonDomain": "http://localhost"
+      }
+      EOF
+      )"
+      echo "${procyon_json}" > procyon-reverse.json
+
+      cd ..
+
+      # ------------------------------------
+      # Procyon Registry 
+      # ------------------------------------
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-registry.zip
+      mkdir procyon-registry
+      unzip procyon-registry.zip -d ./procyon-registry/
+      cd procyon-registry
+      npm install
+
+      echo 'PROCYON_REGISTRY_URL="https://localhost:7070"' > procyon-registry.config
+
+      sudo cp ./procyon-registry /usr/local/bin/procyon-registry
+      sudo cp ./procyon-registry.config /usr/local/bin/procyon-registry.config
+
+      cd ..
 
       echo "🎉 ready to discover Procyon 😃"
 
