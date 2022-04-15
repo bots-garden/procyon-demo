@@ -114,7 +114,10 @@ tasks:
       sudo cp ./procyon-registry /usr/local/bin/procyon-registry
       sudo cp ./procyon-registry.config /usr/local/bin/procyon-registry.config
 
-      cd ..
+      cd certs
+      ./generate.sh
+
+      cd ../..
 
       echo "🎉 ready to discover Procyon 😃"
 
