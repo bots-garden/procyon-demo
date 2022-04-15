@@ -62,21 +62,16 @@ tasks:
       # ------------------------------------
       # Install ProcyonCtl
       # ------------------------------------
-      #procyonctl_config="$(cat <<-EOF
-      #WASM_REGISTRY_URL="https://registry-cdn.wapm.io/contents"
-      #PROCYON_URL="http://localhost:9090"
-      #PROCYON_REVERSE_URL="http://localhost:8080"
-      #EOF
-      #)"
+      # procyonctl_config="$(cat <<-EOF
+      # WASM_REGISTRY_URL="https://registry-cdn.wapm.io/contents"
+      # PROCYON_URL="http://localhost:9090"
+      # PROCYON_REVERSE_URL="http://localhost:8080"
+      # EOF
+      # )"
 
-      procyonctl_config="$(cat <<-EOF
-      WASM_REGISTRY_URL="https://localhost:7070/get"
-      PROCYON_URL="http://localhost:9090"
-      PROCYON_REVERSE_URL="http://localhost:8080"
-      EOF  
-      )"
-
-      echo "${procyonctl_config}" > procyonctl.config
+      echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
+      echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
+      echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
 
       sudo cp ./procyonctl /usr/local/bin/procyonctl
       sudo cp ./procyonctl.config /usr/local/bin/procyonctl.config
