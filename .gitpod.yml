@@ -28,69 +28,8 @@ tasks:
 
     init: |
 
-      RELEASE="0.0.9"
+      RELEASE="0.1.5"
       ARCHITECTURE="amd64"
-      # ------------------------------------
-      # Install Procyon
-      # ------------------------------------
-
-      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
-      mkdir procyon
-      tar -zxf procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon
-      
-      cd procyon
-      procyon_json="$(cat <<-EOF
-      {
-        "executors": {
-          "satExecutorPath": "/usr/local/bin/sat"
-        },  
-        "functions": {
-          "wasmFilesDirectory": "./functions"
-        },
-        "http":{
-          "start": 3000
-        }
-      }
-      EOF
-      )"
-      echo "${procyon_json}" > procyon.json
-
-      # ------------------------------------
-      # Install ProcyonCtl
-      # ------------------------------------
-      procyon_config="$(cat <<-EOF
-      WASM_REGISTRY_URL="https://registry-cdn.wapm.io/contents"
-      PROCYON_URL="http://localhost:9090"
-      ALCOR_URL="http://localhost:8080"
-      EOF
-      )"
-      echo "${procyon_config}" > procyon.config
-
-      sudo cp ./procyonctl /usr/local/bin/procyonctl
-      sudo cp ./procyon.config /usr/local/bin/procyon.config
-
-      rm ./procyonctl
-      rm ./procyon.config
-
-      cd ..
-
-      # ------------------------------------
-      # Install Alcor (reverse proxy)
-      # ------------------------------------
-
-      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
-      mkdir alcor
-      tar -zxf alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory alcor
-
-      rm alcor-${RELEASE}-linux-${ARCHITECTURE}.tar.gz 
-      rm procyon-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
-
-      # ------------------------------------
-      # 🚀 Ignition
-      # ------------------------------------
-      cd procyon; WASM_WORKER_PORT=9090 nohup ./procyon & cd ..
-      cd alcor; PROXY_HTTP=8080 nohup ./alcor & cd ..
-
 
       echo "🎉 ready to discover Procyon 😃"
 
