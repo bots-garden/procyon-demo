@@ -28,7 +28,7 @@ tasks:
 
     init: |
 
-      RELEASE="0.1.6"
+      RELEASE="0.1.7"
       ARCHITECTURE="amd64"
 
       # ------------------------------------
