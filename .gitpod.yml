@@ -3,14 +3,6 @@ tasks:
     before: |
 
       # ------------------------------------
-      # Instal Wasmer and WAPM CLI
-      # ------------------------------------
-      #sudo apt install libncurses5 libxkbcommon0 libtinfo5 libnss3-tools -y
-      #curl https://get.wasmer.io -sSfL | sh 
-      #source /home/gitpod/.wasmer/wasmer.sh
-      #sudo echo "source /home/gitpod/.wasmer/wasmer.sh" >> $HOME/.bashrc
-
-      # ------------------------------------
       # Install Sat (Suborbital)
       # ------------------------------------
       git clone --depth=1 https://github.com/suborbital/sat.git
@@ -26,22 +18,13 @@ tasks:
       brew tap suborbital/subo
       brew install subo
 
+      # ------------------------------------
+      # Install TinyGo
+      # ------------------------------------
       TINYGO_VERSION="0.21.0"
-      # TinyGo
       wget https://github.com/tinygo-org/tinygo/releases/download/v${TINYGO_VERSION}/tinygo_${TINYGO_VERSION}_amd64.deb
       sudo dpkg -i tinygo_${TINYGO_VERSION}_amd64.deb
       rm tinygo_${TINYGO_VERSION}_amd64.deb
-
-      # use the native build: `subo build hey/ --native`
-
-      #git clone --depth=1 https://github.com/suborbital/subo.git
-      #git clone https://github.com/suborbital/subo.git
-      
-      #cd subo
-      #git checkout tags/v0.4.1 -b tmp
-      #make subo
-      #cd ..
-      #rm -rf subo
 
       # ------------------------------------
       # Install tools
@@ -50,10 +33,9 @@ tasks:
       brew install hey
       brew install mkcert
 
-
     init: |
 
-      RELEASE="0.2.0"
+      RELEASE="0.2.8"
       ARCHITECTURE="amd64"
 
       # ------------------------------------
@@ -82,29 +64,27 @@ tasks:
       )"
       
       echo "${procyon_json}" > procyon-launcher.json
-
+      cd ..
 
       # ------------------------------------
       # Install ProcyonCtl
       # ------------------------------------
-      # procyonctl_config="$(cat <<-EOF
-      # WASM_REGISTRY_URL="https://registry-cdn.wapm.io/contents"
-      # PROCYON_URL="http://localhost:9090"
-      # PROCYON_REVERSE_URL="http://localhost:8080"
-      # EOF
-      # )"
+      wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-cli-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
+      mkdir procyon-cli
+      tar -zxf procyon-cli-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon-cli
+      
+      #cd procyon-cli
+      #echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
+      #echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
+      #echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
 
-      echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
-      echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
-      echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
+      #sudo cp ./procyonctl /usr/local/bin/procyonctl
+      #sudo cp ./procyonctl.config /usr/local/bin/procyonctl.config
 
-      sudo cp ./procyonctl /usr/local/bin/procyonctl
-      sudo cp ./procyonctl.config /usr/local/bin/procyonctl.config
+      #rm ./procyonctl
+      #rm ./procyonctl.config
 
-      rm ./procyonctl
-      rm ./procyonctl.config
-
-      cd ..
+      #cd ..
 
       # ------------------------------------
       # Procyon Reverse (reverse proxy)
@@ -164,7 +144,6 @@ tasks:
       echo "🖐️"
       ./start-procyon-launcher.sh
 
-
   - name: procyon-reverse
     init: gp sync-await ignition # wait for the above 'init' to finish
     openMode: split-right
@@ -180,14 +159,14 @@ tasks:
       echo "🖖"
       ./start-procyon-registry.sh
 
-  - name: procyon-sandboc
+  - name: procyon-sandbox
     init: gp sync-await ignition # wait for the above 'init' to finish
     openMode: tab-after
     command: |
       echo "👋 Hello World 🌍"
 
 ports:
-    # Alcor reverse proxy 
+    # Procyon reverse proxy 
   - port: 8080
     visibility: public
     # Procyon
