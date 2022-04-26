@@ -73,18 +73,44 @@ tasks:
       mkdir procyon-cli
       tar -zxf procyon-cli-${RELEASE}-linux-${ARCHITECTURE}.tar.gz --directory procyon-cli
       
-      #cd procyon-cli
+      cd procyon-cli
+
+      procyon_yaml="$(cat <<-EOF
+      # only for use with the Procyon Registry
+      procyon-registry:
+        url: https://localhost:7070
+
+      # if Procyon Registry:
+      # url: https://localhost:7070/get
+      # if wapm.io Registry:
+      # url: https://registry-cdn.wapm.io/contents
+      wasm-registry:
+        url: https://localhost:7070/get
+
+      procyon-launcher:
+        url: http://localhost:9090
+
+      procyon-reverse:
+        url: http://localhost:8080
+      EOF
+      )"
+
+      echo "${procyon_yaml}" > .procyon-cli.yaml
+      cd ..
+
+
       #echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
       #echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
       #echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
 
-      #sudo cp ./procyonctl /usr/local/bin/procyonctl
-      #sudo cp ./procyonctl.config /usr/local/bin/procyonctl.config
+      sudo cp ./procyon-cli /usr/local/bin/procyon-cli
+      sudo cp ./.procyon-cli.yaml /usr/local/bin/.procyon-cli.yaml
 
-      #rm ./procyonctl
-      #rm ./procyonctl.config
+      rm ./procyon-cli
+      rm ./.procyon-cli.yaml
 
-      #cd ..
+      cd ..
+      rm -rf procyon-cli
 
       # ------------------------------------
       # Procyon Reverse (reverse proxy)
