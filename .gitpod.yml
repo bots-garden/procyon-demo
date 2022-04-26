@@ -96,9 +96,7 @@ tasks:
       )"
 
       echo "${procyon_yaml}" > .procyon-cli.yaml
-      cd ..
-
-
+      
       #echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
       #echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
       #echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
