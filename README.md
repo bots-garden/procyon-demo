@@ -53,13 +53,6 @@ procyon-cli registry publish \
 
 
 ## Deploy the Runnable (wasm modules/functions)
-```bash
-procyonctl task deploy hello.0.0.0.wasm hello rev1
-
-procyonctl task deploy hey.0.0.0.wasm hey 🔵
-procyonctl task deploy hey.0.0.1.wasm hey 🟢
-procyonctl task deploy hey.0.0.2.wasm hey 🟠
-```
 
 ```bash
 procyon-cli functions deploy \
