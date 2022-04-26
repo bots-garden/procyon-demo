@@ -35,7 +35,7 @@ tasks:
 
     init: |
 
-      RELEASE="0.2.9"
+      RELEASE="0.3.0"
       ARCHITECTURE="amd64"
 
       # ------------------------------------
@@ -97,18 +97,16 @@ tasks:
 
       echo "${procyon_yaml}" > .procyon-cli.yaml
       
-      #echo 'WASM_REGISTRY_URL="https://localhost:7070/get"' > procyonctl.config
-      #echo 'PROCYON_URL="http://localhost:9090"' >> procyonctl.config
-      #echo 'PROCYON_REVERSE_URL="http://localhost:8080"' >> procyonctl.config
-
       sudo cp ./procyon-cli /usr/local/bin/procyon-cli
-      sudo cp ./.procyon-cli.yaml /usr/local/bin/.procyon-cli.yaml
+      cp .procyon-cli.yaml $HOME/.procyon-cli
 
       rm ./procyon-cli
-      rm ./.procyon-cli.yaml
+
+      # you can use alternate config file with the --config flag
+
+      #rm ./.procyon-cli.yaml
 
       cd ..
-      #rm -rf procyon-cli
 
       # ------------------------------------
       # Procyon Reverse (reverse proxy)
