@@ -2,7 +2,7 @@
 
 > 🚧 wip
 
-This project is a running demonstration of the **[Procyon](https://github.com/bots-garden/procyon)** project. Procyon is an kind of orchestrator for the the **[Sat](https://docs.suborbital.dev/sat/)** project.
+This project is a running demonstration of the **[Procyon](https://github.com/bots-garden/procyon)** project. Procyon is a kind of orchestrator for the the **[Sat](https://docs.suborbital.dev/sat/)** project.
 
 ### What is Sat?
 
