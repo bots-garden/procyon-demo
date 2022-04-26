@@ -5,6 +5,11 @@ if [[ "$1" == "wip" ]]; then
   message="🚧 WIP $2"
 fi
 
+if [[ "$1" == "sample" ]]; then
+  message="🏓 sample $2"
+fi
+
+
 if [[ "$1" == "init" ]]; then
   message="🎉 first commit $2"
 fi

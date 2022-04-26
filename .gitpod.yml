@@ -185,7 +185,7 @@ tasks:
     command: |
       echo "👋"
       ./start-procyon-reverse.sh
-      
+
 
   - name: procyon-registry
     init: gp sync-await ignition # wait for the above 'init' to finish
@@ -206,7 +206,7 @@ ports:
     visibility: public
   - port: 4443
     visibility: public
-    # Procyon
+# Procyon
   - port: 9090
     visibility: public
 
@@ -216,3 +216,4 @@ vscode:
     - golang.go
     - grain-lang.vscode-grain
     - rust-lang.rust
+    - TabNine.tabnine-vscode
