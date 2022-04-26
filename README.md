@@ -1,6 +1,14 @@
-# What is Procyon?
+# What is Procyon Showcase?
 
-🚧 wip
+> 🚧 wip
+
+This project is a running demonstration of the **[Procyon](https://github.com/bots-garden/procyon)** project. Procyon is an kind of orchestrator for the the **[Sat](https://docs.suborbital.dev/sat/)** project.
+
+### What is Sat?
+
+> Sat is a WebAssembly-powered server designed to have the maximum performance and smallest possible footprint.
+
+**Sat** is a small http server, serving a **[Runnable](https://docs.suborbital.dev/atmo/concepts/runnables)** (a Runnable is a wasm module with super powers). 
 
 ## How to create a Runnable
 
