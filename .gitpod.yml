@@ -67,7 +67,7 @@ tasks:
       cd ..
 
       # ------------------------------------
-      # Install ProcyonCtl
+      # Install Procyon-cli
       # ------------------------------------
       wget https://github.com/bots-garden/procyon/releases/download/${RELEASE}/procyon-cli-${RELEASE}-linux-${ARCHITECTURE}.tar.gz
       mkdir procyon-cli
@@ -110,7 +110,7 @@ tasks:
       rm ./.procyon-cli.yaml
 
       cd ..
-      rm -rf procyon-cli
+      #rm -rf procyon-cli
 
       # ------------------------------------
       # Procyon Reverse (reverse proxy)
