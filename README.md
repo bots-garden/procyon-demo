@@ -10,6 +10,14 @@ This project is a running demonstration of the **[Procyon](https://github.com/bo
 
 **Sat** is a small http server, serving a **[Runnable](https://docs.suborbital.dev/atmo/concepts/runnables)** (a Runnable is a wasm module with super powers). 
 
+## How to use this project
+
+It's simple, open this project with **[GitPod](https://www.gitpod.io/)** by clicking on the below button:
+
+[![Open in GitPod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bots-garden/procyon-showcase)
+
+... And wait a moment ⏳ to let the workspace installation complete.
+
 ## How to create a Runnable
 
 👀 this blog post: https://www.wasm.builders/k33g_org/fight-complexity-of-webassembly-with-reactr-222k
@@ -20,9 +28,11 @@ This project is a running demonstration of the **[Procyon](https://github.com/bo
 
 
 ## Create a Runnable
+
 ```bash
 subo create runnable hello
 ```
+> 🖐️ there are already some samples in this repository: `hello`, `hey`, `hey-last`, `hey-next`
 
 ## Publish the Runnable(s)(*) to the local registry
 
@@ -50,7 +60,6 @@ procyon-cli registry publish \
   --function hey \
   --version 0.0.2
 ```
-
 
 ## Deploy the Runnable (wasm modules/functions)
 
