@@ -35,7 +35,7 @@ tasks:
 
     init: |
 
-      RELEASE="0.3.0"
+      RELEASE="0.3.1"
       ARCHITECTURE="amd64"
 
       # ------------------------------------
@@ -91,7 +91,7 @@ tasks:
         url: http://localhost:9090
 
       procyon-reverse:
-        url: http://localhost:8080
+        url: https://localhost:4443
       EOF
       )"
 
@@ -125,7 +125,15 @@ tasks:
       )"
       echo "${procyon_json}" > procyon-reverse.json
 
-      cd ..
+      mkdir certs
+      cd certs
+      mkcert -install
+      mkcert procyon-reverse.local localhost 127.0.0.1 ::1
+      cp procyon-reverse.local+3-key.pem procyon-reverse.local.key
+      cp procyon-reverse.local+3.pem procyon-reverse.local.crt
+      rm *.pem
+
+      cd ../..
 
       # ------------------------------------
       # Procyon Registry 
@@ -144,8 +152,13 @@ tasks:
       sudo cp ./procyon-registryctl.config /usr/local/bin/procyon-registryctl.config
 
       cd certs
-      chmod +x ./generate.sh
-      ./generate.sh
+      #chmod +x ./generate.sh
+      #./generate.sh
+      #mkcert -install
+      mkcert procyon-registry.local localhost 127.0.0.1 ::1
+      cp procyon-registry.local+3-key.pem procyon-registry.local.key
+      cp procyon-registry.local+3.pem procyon-registry.local.crt
+      rm *.pem
 
       cd ../..
 
@@ -190,6 +203,8 @@ tasks:
 ports:
     # Procyon reverse proxy 
   - port: 8080
+    visibility: public
+  - port: 4443
     visibility: public
     # Procyon
   - port: 9090
