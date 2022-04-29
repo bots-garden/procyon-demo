@@ -35,7 +35,7 @@ tasks:
 
     init: |
 
-      RELEASE="0.3.2"
+      RELEASE="0.3.3"
       ARCHITECTURE="amd64"
 
       # ------------------------------------
@@ -89,6 +89,7 @@ tasks:
 
       procyon-launcher:
         url: http://localhost:9090
+        asdmin-token: ilovepandas
 
       procyon-reverse:
         url: https://localhost:4443
