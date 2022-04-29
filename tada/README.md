@@ -20,7 +20,7 @@ procyon-cli registry publish \
 
 ```bash
 procyon-cli functions deploy \
-  --wasm tada.0.0.0.wasm \
+  --wasm https://localhost:7070/get/tada.0.0.0.wasm \
   --function tada \
   --revision 💛
 ```

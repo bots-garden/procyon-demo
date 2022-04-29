@@ -65,22 +65,22 @@ procyon-cli registry publish \
 
 ```bash
 procyon-cli functions deploy \
-  --wasm hello.0.0.0.wasm \
+  --wasm https://localhost:7070/get/hello.0.0.0.wasm \
   --function hello \
   --revision rev1
 
 procyon-cli functions deploy \
-  --wasm hey.0.0.0.wasm \
+  --wasm https://localhost:7070/get/hey.0.0.0.wasm \
   --function hey \
   --revision 🔵
 
 procyon-cli functions deploy \
-  --wasm hey.0.0.1.wasm \
+  --wasm https://localhost:7070/get/hey.0.0.1.wasm \
   --function hey \
   --revision 🟢
 
 procyon-cli functions deploy \
-  --wasm hey.0.0.2.wasm \
+  --wasm https://localhost:7070/get/hey.0.0.2.wasm \
   --function hey \
   --revision 🟠
 ```
